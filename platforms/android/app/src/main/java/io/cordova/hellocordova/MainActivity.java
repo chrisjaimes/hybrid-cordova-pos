@@ -35,6 +35,11 @@ import android.webkit.JavascriptInterface;
 
 public class MainActivity extends CordovaActivity
 {
+
+    private static final String TAG = "MyCordovaPlugin";
+    private PosClient posClient;
+    private static final int CHARGE_REQUEST_CODE = 1;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -45,6 +50,19 @@ public class MainActivity extends CordovaActivity
         if (extras != null && extras.getBoolean("cdvStartInBackground", false)) {
             moveTaskToBack(true);
         }
+
+        Log.d("tag", "main created");
+
+        // posClient = PosSdk.createClient(this, "sq0idp-lzPrfz3kBmUhuQfOBvjnRA");
+        // ChargeRequest request = new ChargeRequest.Builder(1_00, CurrencyCode.valueOf("USD")).build();
+        
+        // try {
+        //     Intent intent = posClient.createChargeIntent(request);
+        //     startActivityForResult(intent, CHARGE_REQUEST_CODE);
+        // } catch (ActivityNotFoundException e) {
+        //     //showDialog("Error", "Square Point of Sale is not installed", null);
+        //     posClient.openPointOfSalePlayStoreListing();
+        // }
         
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);

@@ -37,25 +37,25 @@ public class MyCordovaPlugin extends CordovaPlugin {
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
     super.initialize(cordova, webView);
 
-    Log.d(TAG, "Initializing MyCordovaPlugin");
+    Log.d(TAG, "Initializing MyCordovaPlugin!");
   }
 
   public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
-    posClient = PosSdk.createClient(this, "sq0idp-lzPrfz3kBmUhuQfOBvjnRA");
-    ChargeRequest request = new ChargeRequest.Builder(1_00, CurrencyCode.valueOf("USD")).build();
-    try {
-        Intent intent = posClient.createChargeIntent(request);
-        startActivityForResult(intent, CHARGE_REQUEST_CODE);
-    } catch (ActivityNotFoundException e) {
-//            showDialog("Error", "Square Point of Sale is not installed", null);
-        posClient.openPointOfSalePlayStoreListing();
-    }
+    Log.d(TAG, "Execute()");
 
     if(action.equals("echo")) {
-      String phrase = args.getString(0);
-      // Echo back the first argument
-      Log.d(TAG, phrase);
+
+      posClient = PosSdk.createClient(cordova.getActivity(), "sq0idp-lzPrfz3kBmUhuQfOBvjnRA");
+      ChargeRequest request = new ChargeRequest.Builder(1_00, CurrencyCode.valueOf("USD")).build();
+      try {
+          Intent intent = posClient.createChargeIntent(request);
+          cordova.getActivity().startActivityForResult(intent, CHARGE_REQUEST_CODE);
+      } catch (ActivityNotFoundException e) {
+  //            showDialog("Error", "Square Point of Sale is not installed", null);
+          posClient.openPointOfSalePlayStoreListing();
+      }
+
     } else if(action.equals("getDate")) {
       // An example of returning data back to the web layer
       final PluginResult result = new PluginResult(PluginResult.Status.OK, (new Date()).toString());
