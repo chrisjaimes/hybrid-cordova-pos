@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript View</title>
+
+    <script type="text/javascript">
+
+        function createTransaction(){
+
+            window.MyCordovaPlugin.echo('echo!', function() { //callback })
+
+            });
+            return false;
+        }
+
+        /* 
+            Call the 'showToast' method when the form gets 
+            submitted (by pressing button or return key on keyboard). 
+         */
+        window.onload = function(){
+            var form = document.getElementById("form");
+            form.onsubmit = createTransaction;
+        }
+    </script>
+</head>
+
+<body>
+
+<form id="form">
+    Message: <input id="message" name="message" type="text"/><br />
+    Long: <input id="length" name="length" type="checkbox" /><br />
+
+    <input type="submit" value="Create transaction" />
+</form>
+
+</body>
+</html>
